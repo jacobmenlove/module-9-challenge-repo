@@ -34,21 +34,24 @@ API Calls
 
 */
 
-const fetchWeather = async (cityName: string) => {
-  const response = await fetch('/api/weather/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ cityName }),
-  });
-
-  const weatherData = await response.json();
-
-  console.log('weatherData: ', weatherData);
-
-  renderCurrentWeather(weatherData[0]);
-  renderForecast(weatherData.slice(1));
+const fetchWeather = async (cityName: string): Promise<void> => {
+  try {
+    const response = await fetch('/api/weather/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cityName }),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch weather data');
+    }
+    const weatherData: WeatherData[] = await response.json();
+    renderCurrentWeather(weatherData[0]);
+    renderForecast(weatherData.slice(1));
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const fetchSearchHistory = async () => {
@@ -76,7 +79,7 @@ Render Functions
 
 */
 
-const renderCurrentWeather = (currentWeather: any): void => {
+const renderCurrentWeather = (currentWeather: WeatherData): void => {
   const { city, date, icon, iconDescription, tempF, windSpeed, humidity } =
     currentWeather;
 
@@ -99,7 +102,7 @@ const renderCurrentWeather = (currentWeather: any): void => {
   }
 };
 
-const renderForecast = (forecast: any): void => {
+const renderForecast = (forecast: WeatherData[]): void => {
   const headingCol = document.createElement('div');
   const heading = document.createElement('h4');
 
