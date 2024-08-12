@@ -9,6 +9,8 @@ import routes from './routes/index.js';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
 
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(express.json());
