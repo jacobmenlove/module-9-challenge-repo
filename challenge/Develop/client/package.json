@@ -9,10 +9,14 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/dotenv": "^8.2.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.0"
   },
   "dependencies": {
-    "dayjs": "^1.11.10"
+    "axios": "^1.7.3",
+    "dayjs": "^1.11.10",
+    "dotenv": "^16.4.5"
   }
 }

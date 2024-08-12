@@ -215,6 +215,7 @@ const buildHistoryListItem = (city: City) => {
 };
 
 
+
 const handleSearchFormSubmit = (event: Event): void => {
   event.preventDefault();
 
@@ -231,11 +232,16 @@ const handleSearchFormSubmit = (event: Event): void => {
 };
 
 
-const handleSearchHistoryClick = (event: Event) => {
+const handleSearchHistoryClick = (event: MouseEvent): void => {
   const target = event.target as HTMLElement;
+
   if (target.matches('.history-btn')) {
     const city = target.textContent || '';
-    fetchWeather(city).then(getAndRenderHistory);
+    if (city) {
+      fetchWeather(city).then(() => {
+        getAndRenderHistory();
+      });
+    }
   }
 };
 
@@ -254,3 +260,5 @@ const getAndRenderHistory = () =>
 
 searchForm?.addEventListener('submit', handleSearchFormSubmit);
 searchHistoryContainer
+
+searchHistoryContainer?.addEventListener('click', handleSearchHistoryClick);
