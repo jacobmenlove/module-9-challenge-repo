@@ -11,7 +11,7 @@ interface Coordinates {
 interface Weather {
   date: string;
   icon: string; 
-  iconDescripttion: string;
+  iconDescription: string;
   tempF: number;
   windSpeed: string; 
   humidity: number; 
