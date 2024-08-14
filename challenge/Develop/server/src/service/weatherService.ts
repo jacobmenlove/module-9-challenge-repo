@@ -19,7 +19,7 @@ interface Weather {
 // TODO: Complete the WeatherService class
 
 class WeatherService {
-  private baseURL: string = 'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}';
+  private baseURL: string = 'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2IjoxLCJ1c2VyIjoic2Nob29sX21lbmxvdmVfamFjb2IiLCJpc3MiOiJsb2dpbi5tZXRlb21hdGljcy5jb20iLCJleHAiOjE3MjM2MDU3MDcsInN1YiI6ImFjY2VzcyJ9.8s6phUeCzSY8_pkIlgHJR0WuN8UEwoJcqbHRiKhsay5HJyiEiAnKNJaHCAeTqfWS23NDG8JevV3vCvIDrz1osA';
   private apiKey: string = process.env.OPENWEATHER_API_KEY!;
   
   private async fetchLocationData(query: string) {
