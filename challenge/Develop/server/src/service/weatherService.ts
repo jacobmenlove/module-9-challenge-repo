@@ -19,14 +19,17 @@ interface Weather {
 // TODO: Complete the WeatherService class
 
 class WeatherService {
-  private baseURL: string = 'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2IjoxLCJ1c2VyIjoic2Nob29sX21lbmxvdmVfamFjb2IiLCJpc3MiOiJsb2dpbi5tZXRlb21hdGljcy5jb20iLCJleHAiOjE3MjM2MDU3MDcsInN1YiI6ImFjY2VzcyJ9.8s6phUeCzSY8_pkIlgHJR0WuN8UEwoJcqbHRiKhsay5HJyiEiAnKNJaHCAeTqfWS23NDG8JevV3vCvIDrz1osA';
+  private baseURL: string = 'api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={92bbb01eb12a8ccd2276ffea463d2fbd}';
+  
+//private baseURL: string = 'http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={92bbb01eb12a8ccd2276ffea463d2fbd}';
+  
   private apiKey: string = process.env.OPENWEATHER_API_KEY!;
   
   private async fetchLocationData(query: string) {
     const response = await axios.get(`${this.baseURL}/weather`, {
       params: { q: query, appid: this.apiKey }
     });
-    return response.data;
+    return response.data.coord;
   }
 
   private destructureLocationData(locationData: any): Coordinates {
@@ -70,7 +73,7 @@ class WeatherService {
   }
 
   async getWeatherForCity(city: string) {
-    const coordinates = await this.fetchAndDestructureLocationData(city);
+    const coordinates = await this.fetchLocationData(city);
     const weatherData = await this.fetchWeatherData(coordinates);
     const currentWeather = this.parseCurrentWeather(weatherData);
     const forecast = this.buildForecastArray(weatherData.list.slice(1));
